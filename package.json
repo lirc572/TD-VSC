@@ -3,6 +3,7 @@
 	"displayName": "TD",
 	"description": "declare daily temperature in VSCode",
 	"version": "0.0.1",
+	"publisher": "lirc572",
 	"engines": {
 		"vscode": "^1.52.0"
 	},
@@ -41,6 +42,10 @@
 		"pretest": "yarn run compile && yarn run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lirc572/TD-VSC.git"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
