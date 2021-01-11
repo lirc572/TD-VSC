@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up npm vsce
         run: |
+          yarn install
           sudo npm install vsce -g
       - name: Package extension
         run: |
