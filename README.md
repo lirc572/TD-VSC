@@ -4,6 +4,10 @@
 
 Daily temperature declaration in VS Code!
 
+![Set temperature](img/set_temperature.png)
+
+![Result](img/result.png)
+
 ❗ | This extension assumes that you and your family members **DO NOT HAVE** any COVID-19 symptoms. If you or your family members have COVID-19 symptoms, please declare accordingly on the [official temperature declaration website](https://myaces.nus.edu.sg/htd)!
 :---: | :---
 
