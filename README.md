@@ -12,6 +12,11 @@ Daily temperature declaration in VS Code!
 - Download `.vsix` file from the [latest release](https://github.com/lirc572/TD-VSC/releases/latest)
 - Follow [Install from a VSIX](https://code.visualstudio.com/docs/editor/extension-gallery#_install-from-a-vsix) or simply drag the `.vsix` file to the extensions tab in VS Code
 
+## Usage
+
+- Open *Command Palette* with `Ctrl+Shift+P`
+- Type commands listed in [Commands Section](#commands)
+
 ## Commands:
 
 | Command                 | Description                                                  |
