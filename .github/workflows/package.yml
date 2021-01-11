@@ -19,7 +19,7 @@ jobs:
           sudo npm install vsce -g
       - name: Package extension
         run: |
-          vsce package
+          vsce package --no-yarn
           ls
           VSIXFN=$(ls *.vsix)
           echo "vsixfn=${VSIXFN}" >> $GITHUB_ENV
