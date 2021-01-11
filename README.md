@@ -1,5 +1,7 @@
 # TD-VSC
 
+![package](https://github.com/lirc572/TD-VSC/workflows/Package%20Extension/badge.svg)
+
 ## Commands:
 
 | Command                 | Description                                                  |
