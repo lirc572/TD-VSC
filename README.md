@@ -4,6 +4,9 @@
 
 Daily temperature declaration in VS Code!
 
+❗ | This extension assumes that you and your family members **DO NOT HAVE** any COVID-19 symptoms. If you or your family members have COVID-19 symptoms, please declare accordingly on the [official temperature declaration website](https://myaces.nus.edu.sg/htd)!
+:---: | :---
+
 ## Installation
 
 - Download `.vsix` file from the [latest release](https://github.com/lirc572/TD-VSC/releases/latest)
