@@ -7,22 +7,16 @@ on:
 name: Package Extension
 
 jobs:
-  build:
-    name: Create Release
+  create_release:
+    name: Create release
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      tag_name: ${{ steps.vars.outputs.tag }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up npm vsce
-        run: |
-          yarn install
-          sudo npm install vsce -g
-      - name: Package extension
-        run: |
-          vsce package --no-yarn
-          ls
-          VSIXFN=$(ls *.vsix)
-          echo "vsixfn=${VSIXFN}" >> $GITHUB_ENV
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -33,13 +27,42 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+  build_release:
+    name: Build release
+    needs: create_release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Install vsce in Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo npm install vsce -g
+      - name: Install vsce in macOS
+        if: matrix.os == 'macOS-latest'
+        run: npm install vsce -g
+      - name: Install vsce in Windows
+        if: matrix.os == 'windows-latest'
+        run: npm install vsce -g
+      - name: Package extension
+        run: |
+          vsce package --no-yarn -o ${{ needs.create_release.outputs.tag_name }}-${{ matrix.os }}.vsix
+          ls
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./${{ env.vsixfn }}
-          asset_name: ${{ env.vsixfn }}
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./${{ needs.create_release.outputs.tag_name }}-${{ matrix.os }}.vsix
+          asset_name: ${{ needs.create_release.outputs.tag_name }}-${{ matrix.os }}.vsix
           asset_content_type: application/octet-stream

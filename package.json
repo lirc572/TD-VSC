@@ -2,7 +2,7 @@
 	"name": "td",
 	"displayName": "TD",
 	"description": "declare daily temperature in VSCode",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "lirc572",
 	"engines": {
 		"vscode": "^1.52.0"
